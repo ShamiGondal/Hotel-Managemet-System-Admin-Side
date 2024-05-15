@@ -6,10 +6,11 @@ import Col from 'react-bootstrap/Col';
 
 function CustomerPayments() {
  const [payments, setPayments] = useState([]);
+ const apiUri = import.meta.env.VITE_REACT_APP_API_URL;
 
  useEffect(() => {
     // Fetch payments from the API
-    fetch('http://localhost:4000/api/getpayments')
+    fetch(`${apiUri}api/getpayments`)
       .then(response => response.json())
       .then(data => {
         // Directly set the payments state with the fetched data

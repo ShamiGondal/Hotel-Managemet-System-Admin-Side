@@ -6,7 +6,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 
 function AdminSettings() {
-    const localhost = `http://localhost:4000/`;
+    const apiUri = import.meta.env.VITE_REACT_APP_API_URL;
     function generateNumericID() {
         return Math.floor(Math.random() * 10000000); // Change range according to your requirement
     }
@@ -25,7 +25,7 @@ function AdminSettings() {
 
     const fetchAdmins = async () => {
         try {
-            const response = await fetch(`${localhost}api/getAdmins`);
+            const response = await fetch(`${apiUri}api/getAdmins`);
             if (!response.ok) {
                 throw new Error('Failed to fetch admins');
             }
@@ -49,7 +49,7 @@ function AdminSettings() {
             return;
         }
         try {
-            const response = await fetch(`${localhost}api/addAdmin`, {
+            const response = await fetch(`${apiUri}api/addAdmin`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

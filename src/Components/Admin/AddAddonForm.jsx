@@ -1,7 +1,7 @@
 import  { useState } from 'react';
-import axios from 'axios';
 
 const AddAddonForm = () => {
+  const apiUri = import.meta.env.VITE_REACT_APP_API_URL;
   const [formData, setFormData] = useState({
     title: '',
     subtitle: '',
@@ -33,7 +33,7 @@ const AddAddonForm = () => {
     formDataToSend.append('image', image);
 
     try {
-        const response = await fetch('http://localhost:4000/api/addAddon', {
+        const response = await fetch(`${apiUri}api/addAddon`, {
             method: 'POST',
             body: formDataToSend
         });

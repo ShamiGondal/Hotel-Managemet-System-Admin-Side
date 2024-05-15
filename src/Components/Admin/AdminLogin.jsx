@@ -1,17 +1,17 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import robotImg from '../../assets/robot.png';
 import { ToastContainer, toast } from 'react-toastify';
+import Cookies from 'js-cookie';
 
 const AdminLogin = () => {
     const [credentials, setCredentials] = useState({ userName: '', password: '' });
-    const localhost = 'http://localhost:4000/';
     const navigate = useNavigate();
-
+    const apiUri = import.meta.env.VITE_REACT_APP_API_URL;
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await fetch(`${localhost}api/adminLogin`, {
+            const response = await fetch(`${apiUri}api/adminLogin`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -29,13 +29,15 @@ const AdminLogin = () => {
                 toast.success('Successfully Logged In!');
                 document.cookie = `token=${data.token};max-age=${60 * 60};path=/`;
                 setTimeout(() => {
-                    navigate('/');
+                    navigate('/Customer-Orders');
                 }, 1000);
             } else {
+                toast.error("Invalid Credentials");
                 // Login failed, handle accordingly
             }
         } catch (error) {
             console.error('Error logging in:', error);
+            toast.error(error);
             // Handle error, show error message, etc.
         }
     };
@@ -45,6 +47,12 @@ const AdminLogin = () => {
         setCredentials({ ...credentials, [e.target.name]: e.target.value });
     };
 
+    useEffect(() => {
+        const token = Cookies.get('token');
+        if (token) {
+            navigate('/');
+        }
+    }, [navigate]);
     return (
         <div className="p-3">
             <div className="container bg-white rounded-2 shadow-sm pb-5 px-5 mt-2 mb-5">

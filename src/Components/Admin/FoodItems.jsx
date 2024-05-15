@@ -13,9 +13,10 @@ function Fooditems() {
   const [editIndex, setEditIndex] = useState(-1);
   const [formData, setFormData] = useState({});
   const [showForm, setShowForm] = useState(false); // State to control the visibility of the form
+  const apiUri = import.meta.env.VITE_REACT_APP_API_URL;
 
   useEffect(() => {
-    fetch("http://localhost:4000/api/getFoodItems")
+    fetch(`${apiUri}api/getFoodItems`)
       .then((response) => response.json())
       .then((data) => setFoodItems(data))
       .catch((error) => console.error("Error fetching food items:", error));
@@ -51,7 +52,7 @@ function Fooditems() {
       formDataImage.append("image", formData.image);
 
       // Upload the new image
-      fetch("http://localhost:4000/api/updateFoodItem/uploadImage", {
+      fetch(`${apiUri}api/updateFoodItem/uploadImage`, {
         method: "POST",
         body: formDataImage,
       })
@@ -71,7 +72,7 @@ function Fooditems() {
   };
 
   const updateFoodItem = () => {
-    fetch(`http://localhost:4000/api/updateFoodItem/${formData.FoodItemID}`, {
+    fetch(`${apiUri}api/updateFoodItem/${formData.FoodItemID}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -122,7 +123,7 @@ function Fooditems() {
     );
 
     // Make POST request to API
-    fetch("http://localhost:4000/api/addFoodItems", {
+    fetch(`${apiUri}api/addFoodItems`, {
       method: "POST",
       body: formData,
     })

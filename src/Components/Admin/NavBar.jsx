@@ -33,6 +33,8 @@ const Navbar = () => {
   const [pendingOrdersCount, setPendingOrdersCount] = useState(0);
   const [pendingReservationsCount, setPendingReservationsCount] = useState(0);
   const [unresolvedComplaintsCount, setUnresolvedComplaintsCount] = useState(0);
+  const apiUri = import.meta.env.VITE_REACT_APP_API_URL;
+
   useEffect(() => {
     setIsDrawerDarkMode(isDarkMode);
   }, [isDarkMode, setIsDrawerDarkMode]);
@@ -48,7 +50,7 @@ const Navbar = () => {
     try {
       // Fetch pending orders count
       const ordersResponse = await fetch(
-        "http://localhost:4000/api/pendingOrders"
+        `${apiUri}api/pendingOrders`
       );
       const ordersData = await ordersResponse.json();
       setPendingOrdersCount(
@@ -57,7 +59,7 @@ const Navbar = () => {
 
       // Fetch pending reservations count
       const reservationsResponse = await fetch(
-        "http://localhost:4000/api/pendingReservation"
+        `${apiUri}api/pendingReservation`
       );
       const reservationsData = await reservationsResponse.json();
       setPendingReservationsCount(
@@ -66,7 +68,7 @@ const Navbar = () => {
 
       // Fetch unresolved complaints count
       const complaintsResponse = await fetch(
-        "http://localhost:4000/api/unresolvedComplaints"
+        `${apiUri}api/unresolvedComplaints`
       );
       const complaintsData = await complaintsResponse.json();
       setUnresolvedComplaintsCount(
@@ -83,7 +85,7 @@ const Navbar = () => {
       // Fetch the count of pending reservations from the API
       // Update the pendingReservationsCount state variable
       const response = await fetch(
-        "http://localhost:4000/api/unresolvedComplaints"
+        `${apiUri}api/unresolvedComplaints`
       );
       const data = await response.json();
       setPendingOrdersCount(data.unresolvedComplaintsResult[0].PendingOrders);
@@ -108,7 +110,7 @@ const Navbar = () => {
     try {
       // Fetch the count of pending reservations from the API
       // Update the pendingReservationsCount state variable
-      const response = await fetch("http://localhost:4000/api/pendingOrders");
+      const response = await fetch(`${apiUri}api/pendingOrders`);
       const data = await response.json();
       setPendingOrdersCount(data.pendingReservationsResult[0].PendingOrders);
     } catch (error) {
@@ -122,7 +124,7 @@ const Navbar = () => {
       // Fetch the count of pending reservations from the API
       // Update the pendingReservationsCount state variable
       const response = await fetch(
-        "http://localhost:4000/api/pendingReservation"
+        `${apiUri}api/pendingReservation`
       );
       const data = await response.json();
       setPendingReservationsCount(
@@ -137,7 +139,7 @@ const Navbar = () => {
   const handleSignOut = () => {
     Cookies.remove("token"); // Remove token from cookies
     setIsLoggedIn(false); // Update login status
-    navigate("/"); // Redirect to home page
+    navigate("./Admin-Login"); // Redirect to home page
   };
 
   const handleMenuOpen = (event) => {
@@ -222,7 +224,6 @@ const Navbar = () => {
             <MenuItem onClick={() => handleMenuItemClick("Customer-Feedbacks")}>
               Feedbacks
             </MenuItem>
-            <MenuItem onClick={() => handleMenuItemClick('Reports')}>Reports</MenuItem>
           </div>
 
           <footer

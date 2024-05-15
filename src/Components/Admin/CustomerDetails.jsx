@@ -11,9 +11,10 @@ function CustomerDetails() {
   const [selectedCustomer, setSelectedCustomer] = useState(null);
   const [feedback, setFeedback] = useState([]);
   const [showFeedbackModal, setShowFeedbackModal] = useState(false);
+  const apiUri = import.meta.env.VITE_REACT_APP_API_URL;
 
   useEffect(() => {
-    fetch('http://localhost:4000/api/getCustomers')
+    fetch(`${apiUri}api/getCustomers`)
       .then(response => response.json())
       .then(data => setCustomers(data))
       .catch(error => console.error('Error fetching customers:', error));
@@ -22,7 +23,7 @@ function CustomerDetails() {
   const handleFeedbackButtonClick = async (customerId) => {
     setSelectedCustomer(customerId);
     try {
-      const response = await fetch(`http://localhost:4000/api/getFeedback/${customerId}`);
+      const response = await fetch(`${apiUri}api/getFeedback/${customerId}`);
       const data = await response.json();
       setFeedback(data);
       setShowFeedbackModal(true);

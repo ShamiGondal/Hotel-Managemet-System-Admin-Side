@@ -14,7 +14,7 @@ function Complaints() {
   const [selectedComplaint, setSelectedComplaint] = useState(null);
   const [showConfirmation, setShowConfirmation] = useState(false);
   const [message, setMessage] = useState('');
-
+    const apiUri = import.meta.env.VITE_REACT_APP_API_URL;
   useEffect(() => {
     // Fetch complaints from the API
     fetchComplaints();
@@ -22,7 +22,7 @@ function Complaints() {
 
   const fetchComplaints = async () => {
     try {
-      const response = await fetch('http://localhost:4000/api/getComplaints');
+      const response = await fetch(`${apiUri}api/getComplaints`);
       if (response.ok) {
         const data = await response.json();
         setComplaints(data);
@@ -60,7 +60,7 @@ function Complaints() {
   // Function to resolve complaint
   const handleResolveComplaint = async (complaintId) => {
     try {
-      const response = await fetch(`http://localhost:4000/api/updateComplaintStatus/${complaintId}`, {
+      const response = await fetch(`${apiUri}api/updateComplaintStatus/${complaintId}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json'

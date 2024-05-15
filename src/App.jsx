@@ -24,8 +24,8 @@ function App() {
 
 
             <Route path={'/adminPortal'} element={<AdminLogin />} />
+              <Route path={'Admin-Login'} element={<AdminLogin />} />
             <Route path='/' element={<Navbar />}>
-              {/* <Route path={'/adminPortal'} element={<AdminPortal />}></Route> */}
               <Route path={'Customer-Orders'} element={<CustomerOrders />} />
               <Route path={'Customer-Reservations'} element={<CustomerReservations />} />
               <Route path={'Customer-Details'} element={<CustomerDetails />} />
@@ -35,7 +35,7 @@ function App() {
               <Route path={'Admin-Settings'} element={<AdminSettings />} />
               <Route path={'Customer-Complaints'} element={<AdminComplaints />} />
               <Route path={'AddOnForm'} element={<AddAddonForm />} />
-              <Route path={'Reports'} element={<ReportsComponent/>} />
+              <Route path={'Reports'} element={<ReportsComponent />} />
             </Route>
 
           </Routes>

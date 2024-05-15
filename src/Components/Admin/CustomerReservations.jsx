@@ -11,10 +11,11 @@ function CustomerReservations() {
   const [filteredReservations, setFilteredReservations] = useState([]);
   const [filter, setFilter] = useState('all'); // 'all', 'confirmed', 'rejected', 'pending'
   const [confirmationMsg, setConfirmationMsg] = useState('');
+  const apiUri = import.meta.env.VITE_REACT_APP_API_URL;
 
   useEffect(() => {
     // Fetch reservations from the API
-    fetch('http://localhost:4000/api/getReservations')
+    fetch(`${apiUri}api/getReservations`)
       .then(response => response.json())
       .then(data => {
         setReservations(data);
@@ -38,7 +39,7 @@ function CustomerReservations() {
   // Handle button click to confirm or reject reservation
   const handleConfirmReject = (reservationID, status) => {
     // Perform API call to update reservation status
-    fetch(`http://localhost:4000/api/updateReservationStatus/${reservationID}`, {
+    fetch(`${apiUri}api/updateReservationStatus/${reservationID}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json'

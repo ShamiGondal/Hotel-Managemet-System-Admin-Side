@@ -15,7 +15,7 @@ function Order() {
   const [selectedOrder, setSelectedOrder] = useState(null);
   const [showConfirmation, setShowConfirmation] = useState(false);
   const [message, setMessage] = useState("");
-
+  const apiUri = import.meta.env.VITE_REACT_APP_API_URL;
   useEffect(() => {
     // Fetch orders from the API
     fetchOrders();
@@ -23,7 +23,7 @@ function Order() {
 
   const fetchOrders = async () => {
     try {
-      const response = await fetch("http://localhost:4000/api/getOrders");
+      const response = await fetch(`${apiUri}api/getOrders`);
       if (response.ok) {
         const data = await response.json();
         setOrders(data);
@@ -63,7 +63,7 @@ function Order() {
   const handleRejectOrder = async (orderId) => {
     try {
       const response = await fetch(
-        `http://localhost:4000/api/updateOrderStatus/${orderId}`,
+        `${apiUri}api/updateOrderStatus/${orderId}`,
         {
           method: "PUT",
           headers: {
@@ -88,7 +88,7 @@ function Order() {
   const handleConfirmOrder = async (orderId) => {
     try {
       const response = await fetch(
-        `http://localhost:4000/api/updateOrderStatus/${orderId}`,
+        `${apiUri}api/updateOrderStatus/${orderId}`,
         {
           method: "PUT",
           headers: {
@@ -115,7 +115,7 @@ function Order() {
   const updateOrderPaymentStatus = async (orderId) => {
     try {
       const response = await fetch(
-        `http://localhost:4000/api/updateOrderPaymentStatus/${orderId}`,
+        `${apiUri}api/updateOrderPaymentStatus/${orderId}`,
         {
           method: "PUT",
         }
@@ -141,7 +141,7 @@ function Order() {
         return;
       }
 
-      const response = await fetch("http://localhost:4000/api/insertPayment", {
+      const response = await fetch(`${apiUri}api/insertPayment`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

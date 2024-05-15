@@ -8,10 +8,11 @@ import { BsStarFill, BsStarHalf, BsStar } from 'react-icons/bs'; // Import star 
 function CustomerFeedbacks() {
   // Sample feedback data
   const [feedbacks, setFeedbacks] = useState([]);
+  const apiUri = import.meta.env.VITE_REACT_APP_API_URL;
 
   useEffect(() => {
     // Fetch feedback data from the API
-    fetch('http://localhost:4000/api/getFeedback')
+    fetch(`${apiUri}api/getFeedback`)
       .then(response => response.json())
       .then(data => setFeedbacks(data))
       .catch(error => console.error('Error fetching feedback:', error));
